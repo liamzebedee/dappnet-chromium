@@ -38,7 +38,7 @@ func resolveENS(name string) []byte {
 	namehash, err := ens.NameHash(name)
 	handleErr(err)
 
-	client, err := jsonrpc.NewClient("https://eth-mainnet.g.alchemy.com/v2/HXJKahkFFDDvPADHRfw5R")
+	client, err := jsonrpc.NewClient("https://eth-mainnet.g.alchemy.com/v2/_sv2oRLgzKmeCMYaFUE7BdJjA2sgheGu")
 	handleErr(err)
 
 	// Step 1: Get the resolver address from the ENS registry
