@@ -150,6 +150,9 @@ inline constexpr char kChromeOsHelpViaWebUIURL[] =
 inline constexpr char kIsolatedAppScheme[] = "isolated-app";
 inline constexpr char16_t kIsolatedAppSchemeUtf16[] = u"isolated-app";
 
+// The ipfs: scheme is used for InterPlanetary File System resources.
+inline constexpr char kIPFSScheme[] = "ipfs";
+
 // The chrome-native: scheme is used show pages rendered with platform specific
 // widgets instead of using HTML.
 inline constexpr char kChromeNativeScheme[] = "chrome-native";

@@ -846,6 +846,28 @@ bool HandleNewTabPageLocationOverride(
   return true;
 }
 
+// Handles rewriting IPFS URLs to local gateway.
+bool HandleIPFSURLRewrite(GURL* url, content::BrowserContext* browser_context) {
+  if (!url->SchemeIs(chrome::kIPFSScheme)) {
+    return false;
+  }
+  
+  // Rewrite ipfs://CID/path to http://0.0.0.0:8080/ipfs/CID/path
+  std::string gateway_url = "http://0.0.0.0:8080/ipfs/" + url->host();
+  if (!url->path().empty() && url->path() != "/") {
+    gateway_url += url->path();
+  }
+  if (url->has_query()) {
+    gateway_url += "?" + url->query();
+  }
+  if (url->has_ref()) {
+    gateway_url += "#" + url->ref();
+  }
+  
+  *url = GURL(gateway_url);
+  return true;
+}
+
 #if !BUILDFLAG(IS_ANDROID)
 bool IsFileOrDirectoryPickerWithoutGestureAllowed(
     content::WebContents* contents) {
@@ -4902,6 +4924,10 @@ void ChromeContentBrowserClient::BrowserURLHandlerCreated(
 
   // Handler to rewrite chrome://about and chrome://sync URLs.
   handler->AddHandlerPair(&HandleChromeAboutAndChromeSyncRewrite,
+                          BrowserURLHandler::null_handler());
+
+  // Handler to rewrite ipfs:// URLs to local gateway.
+  handler->AddHandlerPair(&HandleIPFSURLRewrite,
                           BrowserURLHandler::null_handler());
 
 #if BUILDFLAG(IS_ANDROID)

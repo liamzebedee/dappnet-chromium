@@ -25,6 +25,16 @@
 http://vitalik.eth/
 
 
+.perma domains - for permanently linking to content
+or some sort of permanent metadata web, linked to IPFS content
+
+
+web page scraping / archive access
+
+
+
+
+
 Built in:
 - Observable P2P
     Shows number of peers, aggregate download rate

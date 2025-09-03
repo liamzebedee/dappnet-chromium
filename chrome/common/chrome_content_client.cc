@@ -182,6 +182,7 @@ static const char* const kChromeStandardURLSchemes[] = {
 #endif
     chrome::kIsolatedAppScheme,   chrome::kChromeNativeScheme,
     chrome::kChromeSearchScheme,  dom_distiller::kDomDistillerScheme,
+    chrome::kIPFSScheme,
 #if BUILDFLAG(IS_ANDROID)
     content::kAndroidAppScheme,
 #endif
@@ -209,6 +210,9 @@ void ChromeContentClient::AddAdditionalSchemes(Schemes* schemes) {
 
   // chrome-search: resources shouldn't trigger insecure content warnings.
   schemes->secure_schemes.push_back(chrome::kChromeSearchScheme);
+  
+  // IPFS resources are redirected to local gateway so treat them as secure.
+  schemes->secure_schemes.push_back(chrome::kIPFSScheme);
 
 #if BUILDFLAG(ENABLE_EXTENSIONS_CORE)
   // Treat extensions as secure because communication with them is entirely in
